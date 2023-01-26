@@ -7,10 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email-Form</title>
     <link href="index.css" rel="stylesheet">
-    <script
-  src="https://code.jquery.com/jquery-3.6.3.slim.js"
-  integrity="sha256-DKU1CmJ8kBuEwumaLuh9Tl/6ZB6jzGOBV/5YpNE2BWc="
-  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.js"
+        integrity="sha256-DKU1CmJ8kBuEwumaLuh9Tl/6ZB6jzGOBV/5YpNE2BWc=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -20,13 +18,12 @@
         <div class="form_wrap">
             <div class="form-row">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="Name" name="Name"
-                        placeholder="성함을 입력해주세요" required>
+                    <input type="text" class="form-control" id="Name" name="Name" placeholder="성함을 입력해주세요" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <input type='tel' name='phone' class="form-control" placeholder="핸드폰 번호를 입력해주세요" required/>
+                    <input type='tel' name='phone' class="form-control" placeholder="핸드폰 번호를 입력해주세요" required />
                 </div>
             </div>
             <div class="form-row">
@@ -46,9 +43,9 @@
                 <div id="selectbox">
                     <select id="product" name="product" required>
                         <option value="" selected>상품 선택</option>
-                        <option value="류신타블렛 1개월">류신타블렛 1개월</option>
-                        <option value="류신타블렛 2개월">류신타블렛 2개월</option>
-                        <option value="류신타블렛 3개월">류신타블렛 3개월</option>
+                        <option value="핸드크림 1개">핸드크림 1개</option>
+                        <option value="핸드크림 2개">핸드크림 2개</option>
+                        <option value="핸드크림 3개">핸드크림 3개</option>
                     </select>
                 </div>
             </div>
@@ -61,25 +58,25 @@
             <div id="price"></div>
             <div class="form-row">
                 <div class="form-group">
-                    <textarea class="form-control" id="message" name="message" rows="5" maxlength="100" style="height:100px; resize: none;"
-                        placeholder="주문시 추가 전달 사항"></textarea>
+                    <textarea class="form-control" id="message" name="message" rows="5" maxlength="100"
+                        style="height:100px; resize: none;" placeholder="주문시 추가 전달 사항"></textarea>
                 </div>
             </div>
             <script type="text/javascript">
-                $(document).ready(function() {
-                    $('#product').change(function() {
+                $(document).ready(function () {
+                    $('#product').change(function () {
                         var proresult = $('#product option:selected').val();
                         //var monthresult = $('#product option:selected').val();
-                        if (proresult == '류신타블렛 1개월') {
-                            $('#price').html('<span class="origin">79,000원</span><span class="sale">40%↓</span> 47,500원');$('#price').css('display','block');
-                        } else if(proresult == '류신타블렛 2개월'){
-                            $('#price').html('<span class="origin">158,000원</span><span class="sale">40%↓</span> 86,900원');$('#price').css('display','block');
-                        } else if(proresult == '류신타블렛 3개월'){
-                            $('#price').html('<span class="origin">237,000원</span><span class="sale">40%↓</span> 118,500원');$('#price').css('display','block');
-                        }else{$('#price').css('display','none');}
-                    }); 
+                        if (proresult == '핸드크림 1개') {
+                            $('#price').html('<span class="origin">79,000원</span><span class="sale">40%↓</span> 47,500원'); $('#price').css('display', 'block');
+                        } else if (proresult == '핸드크림 2개') {
+                            $('#price').html('<span class="origin">158,000원</span><span class="sale">40%↓</span> 86,900원'); $('#price').css('display', 'block');
+                        } else if (proresult == '핸드크림 3개') {
+                            $('#price').html('<span class="origin">237,000원</span><span class="sale">40%↓</span> 118,500원'); $('#price').css('display', 'block');
+                        } else { $('#price').css('display', 'none'); }
+                    });
                 });
-                
+
                 (function () {
                     // get all data in form and return object
                     function getFormData(form) {
@@ -188,18 +185,45 @@
                 })();
 
             </script>
-            <div class="form-group m-0">
+            <!-- <div class="form-group m-0">
                 <button id="btnSubmit" class="btn-submit mt-2">주문하기</button>
+            </div> -->
+            <div class="form-group m-0">
+                <button id="btnSubmit" class="ready btn-submit mt-2" onclick="clickButton();">
+                    <div class="message submitMessage">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 12.2">
+                            <polyline stroke="currentColor" points="2,7.1 6.5,11.1 11,7.1 " />
+                            <line stroke="currentColor" x1="6.5" y1="1.2" x2="6.5" y2="10.3" />
+                        </svg> <span class="button-text">주문하기</span>
+                    </div>
+                    <div class="message loadingMessage">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 17">
+                            <circle class="loadingCircle" cx="2.2" cy="10" r="1.6" />
+                            <circle class="loadingCircle" cx="9.5" cy="10" r="1.6" />
+                            <circle class="loadingCircle" cx="16.8" cy="10" r="1.6" />
+                        </svg>
+                    </div>
+
+                    <div class="message successMessage">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 11">
+                            <polyline stroke="currentColor" points="1.4,5.8 5.1,9.5 11.6,2.1 " />
+                        </svg> <span class="button-text">주문 완료</span>
+                    </div>
+                    
+                </button>
+                <canvas id="canvas"></canvas>
             </div>
         </div>
 
-        <div style="display:block" class="thankyou_message">
-            주문이 접수 되었습니다.
+        <div style="display:none" class="thankyou_message">
+            주문이 접수 되었습니다
         </div>
+
     </form>
     <script data-cfasync="false" type="text/javascript"
         src="https://cdn.rawgit.com/dwyl/html-form-send-email-via-google-script-without-server/master/form-submission-handler.js">
-    </script>
+        </script>
+    <script src="./test.js"></script>
 </body>
 
 </html>
