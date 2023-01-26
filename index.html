@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Email-Form</title>
     <link href="index.css" rel="stylesheet">
     <script
   src="https://code.jquery.com/jquery-3.6.3.slim.js"
@@ -26,7 +26,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <input type='tel' name='phone' class="form-control" placeholder="핸드폰 번호를 입력해주세요" />
+                    <input type='tel' name='phone' class="form-control" placeholder="핸드폰 번호를 입력해주세요" required/>
                 </div>
             </div>
             <div class="form-row">
@@ -193,8 +193,8 @@
             </div>
         </div>
 
-        <div style="display:none" class="thankyou_message">
-            주문이 접수 되었습니다:>
+        <div style="display:block" class="thankyou_message">
+            주문이 접수 되었습니다.
         </div>
     </form>
     <script data-cfasync="false" type="text/javascript"

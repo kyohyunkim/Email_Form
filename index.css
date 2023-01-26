@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');
+
 body {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9,6 +11,7 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   height: 100vh;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 form {
@@ -109,4 +112,5 @@ form #btnSubmit:hover {
   background-color: #0e1322;
   color: #fff;
 }
+.thankyou_message{padding: 25px 0 0; font-weight: 400; font-size: 15px;color:#595757;}
 /*# sourceMappingURL=index.css.map */
