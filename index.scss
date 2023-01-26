@@ -1,0 +1,72 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+form{
+    margin:0 auto;
+    width:100%;
+    max-width: 400px;
+    border: 1px solid #bbb;
+    padding: 30px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    .form-row{
+        margin:10px 0;
+        .form-group{
+            width: 100%;
+            input{
+                border:1px solid #bbb;
+                padding: 10px 15px;
+                width:calc(100% - 30px);
+            }
+            textarea{
+                border:1px solid #bbb;
+                padding: 10px 15px;
+                width: 300px;
+            }
+            textarea:focus, input:focus{color: #0e1322;}
+            input, select, textarea{
+                color: #0e1322;
+            }
+            
+        }
+        #selectbox{
+            select{
+                border:1px solid #bbb;
+                padding: 10px 15px;
+                width: 100%;
+                height: 37px;
+            }
+        }
+    }
+    #price{
+        margin:10px 0 30px;
+        width:calc(100% - 30px);
+        padding: 10px 15px;
+        display: none;
+        border:1px solid #ddd;
+        color: #0e1322;
+        border-radius: 7px;
+        font-size: 13.33px;
+        font-weight: bold;
+        .sale{color: #A4001F;font-weight: bold;padding: 0 5px 0 10px;}
+        .origin{text-decoration: line-through;color:#bbb;font-weight:normal;}
+    }
+    #btnSubmit{
+        width: 100%;
+        background: #ddd;
+        border: none;
+        color: #0e1322;
+        padding: 10px 15px;
+        border-radius: 7px;
+        cursor: pointer;
+        transition: .2s;
+        &:hover{background-color: #0e1322;color: #fff;}
+    }
+}

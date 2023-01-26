@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="index.css" rel="stylesheet">
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+    <form
+        action="https://script.google.com/macros/s/AKfycbwjsC7SWlAx0O_h_-_YRHccU2YpkVE-9IKHcANbq83dPNBZVytoF-g3flS6DFHi564r/exec"
+        class="gform pure-form pure-form-stacked" method="POST" data-email="rlarygus33@gmail.com" target="_blank">
+        <div class="form_wrap">
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="Name" name="Name"
+                        placeholder="성함을 입력해주세요" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <input type='tel' name='phone' class="form-control" placeholder="핸드폰 번호를 입력해주세요" />
+                </div>
+            </div>
+            <div class="form-row">
+                <!-- <div>상품을 선택하여 주세요</div>
+                <div class="form-group" style="margin:10px 0 30px;">
+                    <input class="form-control" type="checkbox" name="product" value="product" checked>1번
+                    <input class="form-control" type="checkbox" name="product" value="product" required>2번
+                    <input class="form-control" type="checkbox" name="product" value="product">3번
+                </div>
+                <div>개월수를 선택하여 주세요</div>
+                <div class="form-group" style="margin:10px 0 30px;">
+                    <input class="form-control" type="radio" name="month" value="1" checked>1개월
+                    <input class="form-control" type="radio" name="month" value="2" required>2개월
+                    <input class="form-control" type="radio" name="month" value="3">3개월
+                    <input class="form-control" type="radio" name="month" value="6">6개월
+                </div> -->
+                <div id="selectbox">
+                    <select id="product" name="product" required>
+                        <option value="" selected>상품 선택</option>
+                        <option value="류신타블렛 1개월">류신타블렛 1개월</option>
+                        <option value="류신타블렛 2개월">류신타블렛 2개월</option>
+                        <option value="류신타블렛 3개월">류신타블렛 3개월</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="Product Number" name="Product Number"
+                        placeholder="주문하는 상품 갯수" required>
+                </div>
+            </div>
+            <div id="price"></div>
+            <div class="form-row">
+                <div class="form-group">
+                    <textarea class="form-control" id="message" name="message" rows="5" maxlength="100" style="height:100px; resize: none;"
+                        placeholder="주문시 추가 전달 사항"></textarea>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#product').change(function() {
+                        var proresult = $('#product option:selected').val();
+                        //var monthresult = $('#product option:selected').val();
+                        if (proresult == '류신타블렛 1개월') {
+                            $('#price').html('<span class="origin">79,000원</span><span class="sale">40%↓</span> 47,500원');$('#price').css('display','block');
+                        } else if(proresult == '류신타블렛 2개월'){
+                            $('#price').html('<span class="origin">158,000원</span><span class="sale">40%↓</span> 86,900원');$('#price').css('display','block');
+                        } else if(proresult == '류신타블렛 3개월'){
+                            $('#price').html('<span class="origin">237,000원</span><span class="sale">40%↓</span> 118,500원');$('#price').css('display','block');
+                        }else{$('#price').css('display','none');}
+                    }); 
+                });
+                
+                (function () {
+                    // get all data in form and return object
+                    function getFormData(form) {
+                        var elements = form.elements;
+                        var honeypot;
+
+                        var fields = Object.keys(elements).filter(function (k) {
+                            if (elements[k].name === "honeypot") {
+                                honeypot = elements[k].value;
+                                return false;
+                            }
+                            return true;
+                        }).map(function (k) {
+                            if (elements[k].name !== undefined) {
+                                return elements[k].name;
+                                // special case for Edge's html collection
+                            } else if (elements[k].length > 0) {
+                                return elements[k].item(0).name;
+                            }
+                        }).filter(function (item, pos, self) {
+                            return self.indexOf(item) == pos && item;
+                        });
+
+                        var formData = {};
+                        fields.forEach(function (name) {
+                            var element = elements[name];
+
+                            // singular form elements just have one value
+                            formData[name] = element.value;
+
+                            // when our element has multiple items, get their values
+                            if (element.length) {
+                                var data = [];
+                                for (var i = 0; i < element.length; i++) {
+                                    var item = element.item(i);
+                                    if (item.checked || item.selected) {
+                                        data.push(item.value);
+                                    }
+                                }
+                                formData[name] = data.join(', ');
+                            }
+                        });
+
+                        // add form-specific values into the data
+                        formData.formDataNameOrder = JSON.stringify(fields);
+                        formData.formGoogleSheetName = form.dataset.sheet || "responses"; // default sheet name
+                        formData.formGoogleSendEmail
+                            = form.dataset.email || ""; // no email by default
+
+                        return { data: formData, honeypot: honeypot };
+                    }
+
+                    function handleFormSubmit(event) {  // handles form submit without any jquery
+                        event.preventDefault();           // we are submitting via xhr below
+                        var form = event.target;
+                        var formData = getFormData(form);
+                        var data = formData.data;
+
+                        // If a honeypot field is filled, assume it was done so by a spam bot.
+                        if (formData.honeypot) {
+                            return false;
+                        }
+
+                        disableAllButtons(form);
+                        var url = form.action;
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', url);
+                        // xhr.withCredentials = true;
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                form.reset();
+                                var formElements = form.querySelector(".form-elements")
+                                if (formElements) {
+                                    formElements.style.display = "none"; // hide form
+                                }
+                                var thankYouMessage = form.querySelector(".thankyou_message");
+                                if (thankYouMessage) {
+                                    thankYouMessage.style.display = "block";
+                                    alert("주문 접수가 완료되었습니다. 확인 후 회신드리겠습니다.");
+                                }
+                            }
+                        };
+                        // url encode form data for sending as post data
+                        var encoded = Object.keys(data).map(function (k) {
+                            return encodeURIComponent(k) + "=" + encodeURIComponent(data[k]);
+                        }).join('&');
+                        xhr.send(encoded);
+                    }
+
+                    function loaded() {
+                        // bind to the submit event of our form
+                        var forms = document.querySelectorAll("form.gform");
+                        for (var i = 0; i < forms.length; i++) {
+                            forms[i].addEventListener("submit", handleFormSubmit, false);
+                        }
+                    };
+                    document.addEventListener("DOMContentLoaded", loaded, false);
+
+                    function disableAllButtons(form) {
+                        var buttons = form.querySelectorAll("button");
+                        for (var i = 0; i < buttons.length; i++) {
+                            buttons[i].disabled = true;
+                        }
+                    }
+                })();
+
+            </script>
+            <div class="form-group m-0">
+                <button id="btnSubmit" class="btn-submit mt-2">주문하기</button>
+            </div>
+        </div>
+
+        <div style="display:none" class="thankyou_message">
+            주문이 접수 되었습니다:>
+        </div>
+    </form>
+    <script data-cfasync="false" type="text/javascript"
+        src="https://cdn.rawgit.com/dwyl/html-form-send-email-via-google-script-without-server/master/form-submission-handler.js"></script>
+
+</body>
+
+</html>
